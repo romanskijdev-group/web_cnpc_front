@@ -16,7 +16,7 @@ export const UserBlock = ({ className } : { className?: string }) => {
                         <Button title='Войти' onClick={() => {
                             dispatch(setIsAuthenticated(true))
                         }}></Button>
-                        <HoverButton link='/signing' title='Регистрация'></HoverButton>
+                        <HoverButton link='/dashboard/signing' title='Регистрация'></HoverButton>
                     </>
                 ) : (
                     <User name="Sansara"/>
