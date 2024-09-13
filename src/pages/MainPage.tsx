@@ -1,10 +1,10 @@
-import { Navigation } from '../components/mainPage/navbar/Navigation.tsx'
+import { Navigation } from '../components/general/navbar/Navigation.tsx'
 import '../assets/background.css'
 import { Banner } from '../components/mainPage/ft_page/Banner.tsx'
 import { CreatedWith } from '../components/mainPage/created_with/CreatedWith.tsx'
 import { About } from '../components/mainPage/about_project/About.tsx'
 import { Capability } from '../components/mainPage/about_project/Capability.tsx'
-import { Footer } from '../components/mainPage/footer/Footer.tsx'
+import { Footer } from '../components/general/footer/Footer.tsx'
 import { Contacts } from '../components/mainPage/contacts/Contacts.tsx'
 
 const MainPage = () => {
