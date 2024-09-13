@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home, Error, Auth, Register, Profile, QuestPage, DialogPage, NpcPage, MainPage, UserAgree } from './pages'
-<Route index path='/userAgreement' element={<UserAgree/>} />
+import { Home, Error, Auth, Register, Profile, QuestPage, DialogPage, NpcPage, MainPage, UserAgreementPage } from './pages'
 import { DefaultLayout } from './components/layout/DefaultLayout'
 import AOS from 'aos'
 import { useEffect } from 'react'
@@ -16,6 +15,7 @@ function App() {
       <div>
           <Routes>
               <Route index path='/' element={<MainPage/>} />
+              <Route path='/user_agreement' element={<UserAgreementPage/>} />
               <Route path="/dashboard" element={<DefaultLayout/>}>
                   <Route path='/dashboard/login' element={<Auth/>} />
                   <Route path='/dashboard/home' element={<Home/>} />
@@ -24,7 +24,6 @@ function App() {
                   <Route path='/dashboard/quests' element={<QuestPage/>} />
                   <Route path='/dashboard/dialogs' element={<DialogPage/>} />
                   <Route path='/dashboard/npc' element={<NpcPage/>} />
-                  <Route path = '/userAgreement' element={<UserAgree/>}/>
                   <Route path='*' element={<Error/>} />
               </Route>
           </Routes>
