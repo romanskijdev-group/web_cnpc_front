@@ -46,7 +46,7 @@ export const Footer = () => {
                        className='dark:text-gray-200 hover:text-gray-500 dark:hover:text-gray-400 duration-300'>Панель управления</a>
                     <a href='https://google.com/'
                        className='dark:text-gray-200 hover:text-gray-500 dark:hover:text-gray-400 duration-300'>Политика использования</a>
-                    <NavLink to='/userAgreement'
+                    <NavLink to='/user_agreement'
                        className='dark:text-gray-200 hover:text-gray-500 dark:hover:text-gray-400 duration-300'> Пользовательское соглашение</NavLink>
                 </div>
             </div>
