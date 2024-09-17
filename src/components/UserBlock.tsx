@@ -1,22 +1,16 @@
-import { Button } from '../ui/buttons/Button'
-import { setIsAuthenticated } from '../features/redux/user/userSlice'
-import { HoverButton } from '../ui/buttons/HoverButton'
 import { User } from './User'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../features/redux/store'
+import { useSelector } from 'react-redux'
+import { RootState } from '../features/redux/store'
+import {Link} from "react-router-dom";
 
 export const UserBlock = ({ className } : { className?: string }) => {
     const user = useSelector((state: RootState) => state.user);
-    const dispatch = useDispatch<AppDispatch>();
     return(
         <div className={`${className}`}>
             {
                 !user.isLoggedIn ? (
                     <>
-                        <Button title='Войти' onClick={() => {
-                            dispatch(setIsAuthenticated(true))
-                        }}></Button>
-                        <HoverButton link='/dashboard/signing' title='Регистрация'></HoverButton>
+                        <Link className={`bg-gradient-to-br from-yellow-500 via-red-500 to-pink-500 text-white shadow-md px-8 py-2 rounded-lg`} to='/dashboard/login'>Войти</Link>
                     </>
                 ) : (
                     <User name="Sansara"/>
