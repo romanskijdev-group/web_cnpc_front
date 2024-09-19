@@ -3,6 +3,7 @@ import { Home, Error, Auth, Profile, QuestPage, DialogPage, NpcPage, MainPage } 
 import { DefaultLayout } from './components/layout/DefaultLayout'
 import AOS from 'aos'
 import { useEffect } from 'react'
+import Subscription from './pages/Subscription';
 
 function App() {
     useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
                   <Route path='/dashboard/quests' element={<QuestPage/>} />
                   <Route path='/dashboard/dialogs' element={<DialogPage/>} />
                   <Route path='/dashboard/npc' element={<NpcPage/>} />
+                  <Route path='/dashboard/subscription' element={<Subscription/>} />
                   <Route path='*' element={<Error/>} />
               </Route>
           </Routes>
