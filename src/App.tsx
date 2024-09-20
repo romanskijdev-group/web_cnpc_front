@@ -4,6 +4,7 @@ import { DefaultLayout } from './components/layout/DefaultLayout'
 import AOS from 'aos'
 import { useEffect } from 'react'
 import Subscription from './pages/Subscription';
+import UserAgreement from './pages/UserAgreement';
 
 function App() {
     useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
                   <Route path='/dashboard/dialogs' element={<DialogPage/>} />
                   <Route path='/dashboard/npc' element={<NpcPage/>} />
                   <Route path='/dashboard/subscription' element={<Subscription/>} />
+                  <Route path='/user_agreement' element={<UserAgreement/>} />
                   <Route path='*' element={<Error/>} />
               </Route>
           </Routes>
