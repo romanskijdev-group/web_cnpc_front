@@ -17,6 +17,7 @@ function App() {
       <div>
           <Routes>
               <Route index path='/' element={<MainPage/>} />
+              <Route path='/user_agreement' element={<UserAgreement/>} />
               <Route path="/dashboard" element={<DefaultLayout/>}>
                   <Route path='/dashboard/login' element={<Auth/>} />
                   <Route path='/dashboard/home' element={<Home/>} />
@@ -25,7 +26,6 @@ function App() {
                   <Route path='/dashboard/dialogs' element={<DialogPage/>} />
                   <Route path='/dashboard/npc' element={<NpcPage/>} />
                   <Route path='/dashboard/subscription' element={<Subscription/>} />
-                  <Route path='/user_agreement' element={<UserAgreement/>} />
                   <Route path='*' element={<Error/>} />
               </Route>
           </Routes>
