@@ -13,7 +13,7 @@ const UserAgreement = () => {
   
           <div className="container mx-auto py-8 px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="sticky top-16">
+              <div className="sticky top-16 w-48">
                 <nav className="flex flex-col gap-4">
                   <a
                     href="https://google.com/"
@@ -38,10 +38,10 @@ const UserAgreement = () => {
                 </nav>
               </div>
   
-              <div className="col-span-2">
+              <div className="col-span-2 ">
                 <div className="prose dark:prose-invert max-w-none rounded-lg bg-white dark:bg-gray-800 p-4 shadow-lg">
   
-                  <p>
+                  <p className="">
                     1. Общие положения
                   </p>
   
@@ -67,7 +67,7 @@ const UserAgreement = () => {
                     Компания была уведомлена о возможности таких убытков.
                   </p>
   
-                  <p>
+                  <p className="">
                      2. Права и обязанности Пользователя
                   </p>
   
@@ -107,7 +107,7 @@ const UserAgreement = () => {
                     </li>
                   </ul>
   
-                  <p>
+                  <p className="">
                     3. Изменения Соглашения
                   </p>
   
@@ -118,7 +118,7 @@ const UserAgreement = () => {
                     ее публикации на сайте [название сервиса]. 
                   </p>
   
-                  <p>
+                  <p className="">
                     4. Контактная информация
                   </p>
   
@@ -126,7 +126,7 @@ const UserAgreement = () => {
                     [Контактная информация компании]
                   </p>
   
-                  <p>
+                  <p className="">
                     5. Применимое право
                   </p>
   
