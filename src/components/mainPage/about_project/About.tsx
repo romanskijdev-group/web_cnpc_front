@@ -9,8 +9,8 @@ import { FaTools } from "react-icons/fa";
 export const About = () => {
     return(
         <div className='flex flex-col gap-[8px] sm:max-w-screen-xl w-[90%] mx-auto mt-[150px] border dark:border-gray-500 rounded-lg p-4' id='about' data-aos='fade-up'>
-                <h1 className='dark:text-gray-200 text-center text-xl sm:text-3xl'>Что это за проект?</h1>
-                <div className='flex flex-col gap-[8px] dark:text-gray-300 text-gray-700 sm:text-lg'>
+                <h1 className='text-2xl font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white text-center '>Что это за проект?</h1>
+                <div className='flex flex-col gap-[8px] dark:text-gray-300 text-gray-700'>
                     <h2> Устали от скучных NPC на серверах Minecraft? Создайте свой мир, полный приключений!</h2>
                     <p>Добро пожаловать на QuestHolder — платформу для совместного создания увлекательных квестов для CustomNPC в Minecraft!</p>
                     <p>👑 Превращайте бездушных болванчиков в харизматичных героев.
