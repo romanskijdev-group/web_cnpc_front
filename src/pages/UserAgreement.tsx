@@ -20,7 +20,7 @@ const UserAgreement = () => {
   },
 ];
   const handleAgreementSelect = (id: number) => {
-    setSelectedAgreement(agreements.find((agreement) => agreement.id === id));
+    setSelectedAgreement(agreements.find((agreement) => agreement.id == id));
   };
 
   return (
