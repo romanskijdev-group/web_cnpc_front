@@ -8,7 +8,7 @@ import { FaTools } from "react-icons/fa";
 
 export const About = () => {
     return(
-        <div className='flex flex-col gap-[8px] sm:max-w-screen-xl w-[90%] mx-auto mt-[150px] border dark:border-gray-500 rounded-lg p-4' id='about' data-aos='fade-up'>
+        <div id='about' className='flex flex-col gap-[8px] sm:max-w-screen-xl w-[90%] mx-auto mt-[150px] border dark:border-gray-500 rounded-lg p-4' data-aos='fade-up'>
                 <h1 className='text-2xl font-medium text-gray-800 transition group-hover:text-purple-950 dark:text-white text-center '>Что это за проект?</h1>
                 <div className='flex flex-col gap-[8px] dark:text-gray-300 text-gray-700'>
                     <h2> Устали от скучных NPC на серверах Minecraft? Создайте свой мир, полный приключений!</h2>
@@ -24,7 +24,7 @@ export const About = () => {
                     <p>Удобный визуальный редактор для создания диалогов и квестов без необходимости программирования.</p>
                     <p>Возможность импорта и экспорта квестов для легкого обмена с другими пользователями.</p>
                     <p>Активное и дружелюбное сообщество, готовое помочь советом и поделиться опытом.</p>
-                    <p>Превратите свой Minecraft сервер в мир захватывающих дух историй! Зарегистрируйтесь на QuestHolder и начни создавать свои квесты уже сегодня!</p>
+                    <p>Превратите свой Minecraft сервер в мир захватывающих дух историй! Зарегистрируйтесь на QuestHolder и начните создавать свои квесты уже сегодня!</p>
             </div>
         </div>
 
