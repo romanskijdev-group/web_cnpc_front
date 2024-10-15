@@ -15,8 +15,7 @@ const ListItem = ( { icon, text } : { icon?:React.ReactNode, text: string } ) =>
 
 export const Contacts: React.FC = () => {
     return(
-        <div className='transition-all duration-300 sm:max-w-screen-xl w-[90%] mx-auto mt-[150px] rounded-lg p-4'
-             id='about' data-aos='fade-up'>
+        <div id='contacts' className='transition-all duration-300 sm:max-w-screen-xl w-[90%] mx-auto mt-[150px] rounded-lg p-4' data-aos='fade-up'>
             <h1 className='dark:text-gray-200 text-center text-xl sm:text-3xl'>Связь с нами</h1>
             <div className='flex flex-col gap-0'>
                 <ContactItem
