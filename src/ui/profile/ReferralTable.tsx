@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 export const ReferralTable: React.FC = () => {
-    const [invitationLink, setInvitationLink] = useState<string>('');
-    const [referrals, setReferrals] = useState<any[]>([]);
+    const [invitationLink, /*setInvitationLink*/] = useState<string>('');
+    const [referrals, /*setReferrals*/] = useState<any[]>([]);
 
     const handleInviteClick = () => {
     console.log('Запрос на ссылку отправлен');
