@@ -1,5 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import { Button } from '../buttons/Button';
+import { useTranslation } from 'react-i18next';
 
 interface ConfirmProps {
   open: boolean;
@@ -9,6 +10,8 @@ interface ConfirmProps {
 }
 
 export const Confirm: React.FC<ConfirmProps> = ({ open, setOpen, onClick, title }) => {
+    const { t } = useTranslation();
+
   return (
     <div
       className={`z-[1000] absolute left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.4)] transition ${open ? 'opacity-100' : 'opacity-0 hidden'}`}>
@@ -28,14 +31,14 @@ export const Confirm: React.FC<ConfirmProps> = ({ open, setOpen, onClick, title 
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                   d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Вы уверены что хотите удалить запись {title}?</h3>
+          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{t('confirm.accept')} {title}?</h3>
           <div className='flex sm:flex-row w-max mx-[auto] flex-col justify-around items-center gap-[10px]'>
             <Button title='Да, я уверен' onClick={onClick}/>
             <button
                 onClick={() => {setOpen(false)}}
                 data-modal-hide="popup-modal" type="button"
                 className="py-2.5 px-5 text-sm font-medium text-gray-900 dark:text-white focus:outline-none bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-100 hover:dark:bg-gray-600 hover:text-blue-700 focus:z-10">
-              Отмена
+              {t('confirm.cancel')}
             </button>
           </div>
         </div>

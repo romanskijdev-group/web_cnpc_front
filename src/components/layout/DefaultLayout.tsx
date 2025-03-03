@@ -1,4 +1,4 @@
-import { SideBar } from '../SideBar';
+import { SideBar } from '../../ui/sidebar/SideBar.tsx';
 import { Outlet } from 'react-router';
 import { Container } from '../../ui/Container';
 import { MobileBottom } from '../MobileBottom'

@@ -71,7 +71,14 @@
       "title": "My profile"
     },
     "wallet": {
-      "title": "Wallet"
+      "title": "Wallet",
+      "currentBalance": "Current balance:",
+      "replenish": "Replenish",
+      "bankCard": "Bank card",
+      "noCardAdded": "You haven't added a card yet.",
+      "addCard": "Add card",
+      "ton": "TON",
+      "noTonConnected": "TON wallet is not connected."
     },
     "transaction": {
       "title": "Purchases"
@@ -82,6 +89,8 @@
       "theme": "Theme",
       "language": "Language",
       "upload_avatar": "Upload avatar",
+      "delete_profile":"Delete profile",
+      "save_profile":"Save",
       "file": "Selected file",
       "delete": {
         "buttonTitle": "Delete Profile",
@@ -90,7 +99,6 @@
         "accept": "Delete",
         "refuse": "Cancel"
       }
-      
     }
   },
   "upload_file": {
@@ -126,6 +134,11 @@
         "bannerGold": "Best Value",
         "bannerPrem": "Best Choice",
         "priceFree": "Free Subscription",
+        "currentSubscription": "Current subscription: ",
+        "currentSubscriptionType": "You are using a",
+        "standart": "basic",
+        "paid": "paid",
+        "subs": "subscription",
         "features": {
           "creator": {
             "feature1": "Create simple quests with a limited number of steps.",
@@ -161,7 +174,27 @@
         "offer2": "Easy import and export of quests for sharing with other users. You can quickly share your quests and use others for inspiration.",
         "offer3": "An active and friendly community ready to provide advice and support. Join discussions, ask questions, and share your experience.",
         "call_to_action": "Join QuestHolder and start creating your own Minecraft quests today! Register to become part of the creative creators community and dive into a world of captivating stories and adventures."
-    }
-    
-    
+    },
+    "sidebar": {
+      "admin": "Admin-panel",
+      "main": "Main page",
+      "npc": "NPC",
+      "quests": "Quests",
+      "dialogue": "Dialogues",
+      "analytics": "Analytics"
+    },
+    "project" : {
+      "generalSettings": "General Settings",
+      "projectName" : "Project Name",
+      "projectVersion" : "Project Version",
+      "projectDescription": "Project Description",
+      "save": "Save",
+      "members": "Members",
+      "memberList" : "Project Members"
+  },
+  "confirm" : {
+  "accept": "Are you sure you want to delete the entry",
+  "cancel" : "Cancel"
+}
+
 }

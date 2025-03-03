@@ -3,6 +3,7 @@ import { BsCashCoin } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useState } from 'react';
+import {ReferralTable} from '../ui/profile/ReferralTable.tsx'; 
 
 const ProfileWalletHeader = () => {
   const { t } = useTranslation();
@@ -20,18 +21,19 @@ const ProfileWalletHeader = () => {
 };
 
 const ProfileBalance = () => {
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
   const [balance] = useState(0); 
   
   return (
     <div className="w-full p-4 bg-green-600 rounded-lg shadow-md flex justify-between items-center mb-4">
-      <p className='text-2xl font-semibold text-white'>Текущий баланс: {balance}₽</p>
-      <button className="bg-white text-green-700 px-4 py-2 rounded-full">Пополнить</button>
+      <p className='text-2xl font-semibold text-white'>{t('profile.wallet.currentBalance')} {balance}₽</p>
+      <button className="bg-white text-green-700 px-4 py-2 rounded-full">{t('profile.wallet.replenish')}</button>
     </div>
   );
 };
 
 export const ProfileWallet = () => {
+  const { t } = useTranslation();
   return (
     <>
       {ProfileWalletHeader()}
@@ -39,20 +41,21 @@ export const ProfileWallet = () => {
         {ProfileBalance()}
         <div className='flex flex-row gap-3 w-full'>
           <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex-1">
-            <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Банковская карта</h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">Вы пока ещё не добавили карту</p>
+            <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{t('profile.wallet.bankCard')}</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">{t('profile.wallet.noCardAdded')}</p>
             <div className="flex justify-center">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-full">Добавить карту</button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-full">{t('profile.wallet.addCard')}</button>
             </div>
           </div>
           <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex-1">
-            <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">TON</h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">Вы не подключили TON кошелёк</p>
+            <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{t('profile.wallet.ton')}</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">{t('profile.wallet.noTonConnected')}</p>
             <div className="flex justify-center">
               <TonConnectButton />
             </div>
           </div>
         </div>
+        <ReferralTable />
       </div>
     </>
   );

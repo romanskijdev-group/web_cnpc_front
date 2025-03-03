@@ -1,23 +1,24 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux'
-import {RootState} from '../features/redux/store'
+import {RootState} from '../../features/redux/store.ts'
 import {IoIosArrowDropleft} from "react-icons/io";
-import {SideBarButton} from "../ui/sidebar/SideBarButton.tsx";
+import {SideBarButton} from "./SideBarButton.tsx";
 import {FaHouse} from "react-icons/fa6";
 import {FaUser} from "react-icons/fa";
 import {MdCategory} from "react-icons/md";
 import {SiDialogflow} from "react-icons/si";
 import {AiFillCodeSandboxCircle} from "react-icons/ai";
-import {ThemeChanger} from './general/navbar/ThemeChanger.tsx';
+import {ThemeChanger} from '../../components/general/navbar/ThemeChanger.tsx';
 import {PiLightningDuotone} from "react-icons/pi";
 import Cookies from "js-cookie";
-import { AdminButton } from '../ui/sidebar/AdminButton.tsx';
+import {useTranslation} from "react-i18next";
 import { RiAdminLine } from "react-icons/ri";
 
 export const SideBar = () => {
     const selected = useSelector((state: RootState) => state.projects.selectedProject);
     const [isOpen, setOpen] = React.useState(Cookies.get('sideBarOpen') === 'true');
+    const { t } = useTranslation();
 
 
     useEffect(() => {
@@ -53,25 +54,25 @@ export const SideBar = () => {
                     style={`w-max dark:bg-[#1B1C22] dark:border-[#27282D] ${isOpen ? '' : 'mx-auto'}`}></ThemeChanger>
             </div>
             <div className='w-full border-t dark:border-[#2B2C2F]'></div>
-            <SideBarButton title='Аналитика' linkTo='/dashboard/analytics' isOpen={isOpen}>
+            <SideBarButton title={t('sidebar.analytics')} linkTo='/dashboard/analytics' isOpen={isOpen}>
                 <PiLightningDuotone className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
             </SideBarButton>
-            <AdminButton title='Админ-панель' linkTo='/adminpanel' isOpen={isOpen}>
+            <SideBarButton title={t('sidebar.admin')} linkTo='/admin' isOpen={isOpen}>
             <RiAdminLine className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
-            </AdminButton>
+            </SideBarButton>
             <div className='w-full border-t dark:border-[#2B2C2F]'></div>
             <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative transition-all duration-300">
                 <div className="flex flex-col gap-2">
-                    <SideBarButton title='Главная' linkTo='/dashboard/home' isOpen={isOpen}>
+                    <SideBarButton title={t('sidebar.main')} linkTo='/dashboard/home' isOpen={isOpen}>
                         <FaHouse className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
                     </SideBarButton>
-                    <SideBarButton title='NPC' linkTo='/dashboard/npc' isOpen={isOpen}>
+                    <SideBarButton title={t('sidebar.npc')} linkTo='/dashboard/npc' isOpen={isOpen}>
                         <FaUser className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
                     </SideBarButton>
-                    <SideBarButton title='Квесты' linkTo='/dashboard/quests' isOpen={isOpen}>
+                    <SideBarButton title={t('sidebar.quests')} linkTo='/dashboard/quests' isOpen={isOpen}>
                         <MdCategory className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
                     </SideBarButton>
-                    <SideBarButton title='Диалоги' linkTo='/dashboard/dialogs' isOpen={isOpen}>
+                    <SideBarButton title={t('sidebar.dialogue')} linkTo='/dashboard/dialogs' isOpen={isOpen}>
                         <SiDialogflow className={`${isOpen ? 'text-xl' : 'text-2xl'}`}/>
                     </SideBarButton>
                 </div>
