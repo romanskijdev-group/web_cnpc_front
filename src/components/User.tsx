@@ -11,7 +11,6 @@ import { AppDispatch } from '../features/redux/store';
 import { setIsAuthenticated } from '../features/redux/user/userSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GetUserProfile } from '../features/api/profile.ts';
-import { Skeleton } from '@mui/material';
 
 export const User = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +23,8 @@ export const User = () => {
     },
     onSuccess: (data: ApiResponse<UserProfileResponseData>) => {
       queryClient.setQueryData(['user_profile'], data.data);
-      console.log('Пароль успешно отправлен:', data.data);
+      console.log('Профиль пользователя:', data);
+      console.log('Профиль пользователя:', data.data);
     },
     onError: (error: Error) => {
       console.error('Ошибка отправки пароля:', error);
@@ -47,11 +47,11 @@ export const User = () => {
         {
           userProfile &&
           <UserAvatar className='h-[40px] w-[40px]' avatar_url={userProfile.avatar_url} nickname={userProfile.nickname}></UserAvatar> ||
-          <Skeleton animation="wave" variant="circular" width={40} height={40} />
+         <p>Загрузка...</p>
         }
         {
           userProfile && <UserName name={userProfile.nickname}></UserName> ||
-          <Skeleton animation="wave" variant="text" width={120} height={30} />
+          <p>Загрузка...</p>
         }
         <SlOptionsVertical />
       </div>

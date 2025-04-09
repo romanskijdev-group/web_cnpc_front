@@ -8,13 +8,13 @@ import { ProjectSelect } from '../components/projects/ProjetSelect'
 import { SelectedProjectQuests } from '../components/selectedProject/Quests'
 
 const Quests = () => {
-    const [searchValue, setSearchValue] = useState('')
+    const [searchValue] = useState('')
     const selected = useSelector((state: RootState) => state.projects.selectedProject);
 
     return (
         <div className='flex flex-col gap-[20px]'>
             <div className='flex w-full justify-between items-center'>
-                <Search searchValue={searchValue} setValue={setSearchValue}></Search>
+                <Search></Search>
                 <UserBlock className='sm:flex hidden gap-[20px]'/>
                 <MobileNavigation/>
             </div>

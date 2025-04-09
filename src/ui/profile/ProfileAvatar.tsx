@@ -3,7 +3,6 @@ import {ProfileHeader} from "./ProfileHeader.tsx";
 import {FiCopy} from "react-icons/fi";
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Skeleton } from '@mui/material';
 import { GetUserProfile } from '../../features/api/profile.ts';
 import { UserAvatar } from '../user/UserAvatar.tsx';
 
@@ -61,21 +60,23 @@ export const ProfileUser = () => {
                 }
                 <p className='text-gray-700 font-semibold text-2xl dark:text-[#8D8E91] z-10'>
                     {
-                      userProfile && userProfile.nickname || <Skeleton animation="wave" variant="text" width={120} height={30} />
+                      userProfile && userProfile.nickname
+                      || <p>Загрузка...</p>
                     }
                 </p>
                 <p className='text-gray-700 font-light opacity-50 text-sm z-10 dark:text-white text-center'>
                     {
                         userProfile != undefined ?
                           userProfile.first_name && userProfile.first_name || 'Имя не задано' : (
-                          <Skeleton animation="wave" variant="text" width={120} height={30} />
+                            <div>Загрузка...</div>
                         )
                     }
                 </p>
 
                 <div className='relative flex justify-center items-center'>
                     <p className='text-gray-700 font-light text-sm z-10 dark:text-white flex justify-center items-center gap-2'>
-                        User #{userProfile && userProfile.serial_id || <Skeleton animation="wave" variant="text" width={120} height={30} />}
+                        User #{userProfile && userProfile.serial_id || <div>Загрузка...</div>
+                    }
                         <FiCopy
                             className='cursor-pointer'
                             onClick={handleCopy}
@@ -97,14 +98,23 @@ export const ProfileUser = () => {
                             userProfile != undefined ?
                               userProfile.bio && userProfile.bio || 'Люблю вечеринки 🎉' : (
                               <div>
-                                  <Skeleton className='bg-red-700' animation="wave" variant="text" height={30}/>
-                                  <Skeleton animation="wave" variant="text" height={30}/>
+                                  <p>Загрузка...</p>
+                                  <p>Загрузка...</p>
                               </div>
                             )
                         }
                     </p>
                 </div>
-                <div className='absolute right-4 md:right-10 border rounded-lg px-4 py-1 bg-gray-700 text-white dark:text-opacity-50 dark:bg-[#202126] dark:border-[#414246]'>Creator</div>
+                <div className='absolute right-4 md:right-10 border rounded-lg px-4 py-1 bg-gray-700 text-white dark:text-opacity-50 dark:bg-[#202126] dark:border-[#414246]'>
+                    {
+                        userProfile != undefined ?
+                          userProfile.role && userProfile.role || 'Пользователь' : (
+                          <div>
+                              <p>Загрузка...</p>
+                          </div>
+                        )
+                    }
+                </div>
             </div>
         </ProfileHeader>
     )

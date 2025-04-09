@@ -12,7 +12,6 @@ import { ProfileOptionsButton } from '../ui/user/ProfileOptionsButton';
 import { CgProfile } from 'react-icons/cg';
 import { IoMdOptions } from 'react-icons/io';
 import { useQueryClient } from '@tanstack/react-query';
-import { Skeleton } from '@mui/material';
 
 export const MobileNavigation = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -44,8 +43,8 @@ export const MobileNavigation = () => {
                     <div className="flex justify-start items-center gap-[10px] mx-[auto]">
                       {
                         userProfile &&
-                        <UserAvatar className='h-[40px] w-[40px]' avatar_url={userProfile.avatar_url} nickname={userProfile.nickname}></UserAvatar> ||
-                        <Skeleton animation="wave" variant="circular" width={40} height={40} />
+                        <UserAvatar className='h-[40px] w-[40px]' avatar_url={userProfile.avatar_url} nickname={userProfile.nickname}></UserAvatar>
+                        // <Skeleton animation="wave" variant="circular" width={40} height={40} />
                       }
                       <UserName name="Sansara" />
                     </div>

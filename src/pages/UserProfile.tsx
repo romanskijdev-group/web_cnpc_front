@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GetUserProfileByID } from '../features/api/profile.ts';
 import { useEffect, useState } from 'react';
 import { CiImageOff } from 'react-icons/ci';
-import { Skeleton } from '@mui/material';
 import { FiCopy } from 'react-icons/fi';
 import { ProfileHeader } from '../ui/profile/ProfileHeader.tsx';
 import { Search } from '../ui/input/SearchInput.tsx';
@@ -70,21 +69,20 @@ const UserProfile = () => {
             </div>
             <p className="text-gray-700 font-semibold text-2xl dark:text-[#8D8E91] z-10">
               {
-                user && user.nickname || <Skeleton animation="wave" variant="text" width={120} height={30} />
+                user && user.nickname || <p>Загрузка...</p>
               }
             </p>
             <p className="text-gray-700 font-light opacity-50 text-sm z-10 dark:text-white text-center">
               {
                 user != undefined ?
-                  user.first_name && user.first_name || 'Имя не задано' : (
-                  <Skeleton animation="wave" variant="text" width={120} height={30} />
-                )
+                  user.first_name && user.first_name
+                  || 'Имя не задано' : (<p>Загрузка...</p>)
               }
             </p>
 
             <div className="relative flex justify-center items-center">
               <p className="text-gray-700 font-light text-sm z-10 dark:text-white flex justify-center items-center gap-2">
-                User #{user && user.serial_id || <Skeleton animation="wave" variant="text" width={120} height={30} />}
+                User #{user && user.serial_id || <p>Загрузка...</p>}
                 <FiCopy
                   className="cursor-pointer"
                   onClick={handleCopy}
@@ -106,8 +104,8 @@ const UserProfile = () => {
                   user != undefined ?
                     user.bio && user.bio || 'Люблю вечеринки 🎉' : (
                     <div>
-                      <Skeleton className="bg-red-700" animation="wave" variant="text" height={30} />
-                      <Skeleton animation="wave" variant="text" height={30} />
+                      <p>Загрузка...</p>
+                      <p>Загрузка...</p>
                     </div>
                   )
                 }
