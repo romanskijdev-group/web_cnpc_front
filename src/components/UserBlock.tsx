@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../features/redux/store';
 import { Link } from 'react-router-dom';
 import { BellButton } from '../ui/buttons/bellButton';
-import { NotificationMenu } from '../components/modal/notificationsModal';
+import { NotificationMenu } from './modal/notificationsModal.tsx';
 import { User } from './User';
 
 // Компонент UserBlock
@@ -35,7 +35,7 @@ export const UserBlock: React.FC<{ className?: string }> = ({ className }) => {
               onClose={handleClose}
             />
           )}
-          <User name="Sansara" />
+          <User/>
         </>
       )}
     </div>
