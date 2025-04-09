@@ -1,12 +1,14 @@
-import {CiImageOff} from "react-icons/ci";
-import {ProfileHeader} from "./ProfileHeader.tsx";
-import {FiCopy} from "react-icons/fi";
-import {useState} from "react";
+import { CiImageOff } from "react-icons/ci";
+import { ProfileHeader } from "./ProfileHeader";
+import { FiCopy } from "react-icons/fi";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
-export const ProfileUser = ({name}: { name: string }) => {
+export const ProfileUser = ({ name }: { name: string }) => {
     const userId = "100000";
     const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
     const [tooltip, setTooltip] = useState<string>("Скопировать ID");
+    const navigate = useNavigate(); 
 
     const handleCopy = () => {
         navigator.clipboard.writeText(`#${userId}`).then(() => {
@@ -16,6 +18,10 @@ export const ProfileUser = ({name}: { name: string }) => {
             setTooltip('Ошибка копирования ID');
             setTimeout(() => setTooltip("Скопировать ID"), 2000);
         });
+    };
+
+    const handleCreatorClick = () => {
+        navigate("/dashboard/subscription");
     };
 
     return (
@@ -50,9 +56,14 @@ export const ProfileUser = ({name}: { name: string }) => {
                     <p>Привет! Меня зовут Роман, я создатель
                         сервера EldirtchMagic и по
                         совместительству разработчик данной
-                        платформы. Будем знакомы!</p></div>
-                <div className='absolute right-10 border rounded-lg px-4 py-1 bg-gray-700 text-white dark:text-opacity-50 dark:bg-[#202126] dark:border-[#414246]'>Creator</div>
+                        платформы. Будем знакомы!</p>
+                </div>
+
+                <button
+                    className='absolute right-10 border rounded-lg px-4 py-1 bg-gray-700 text-white dark:text-opacity-50 dark:bg-[#202126] dark:border-[#414246] focus:outline-none'
+                    onClick={handleCreatorClick}>User
+                </button>
             </div>
         </ProfileHeader>
-    )
-}
+    );
+};

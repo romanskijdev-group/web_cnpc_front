@@ -60,10 +60,10 @@ const SubscriptionPage: React.FC = () => {
   ];
 
   return (
-    <div className="text-white min-h-screen px-4">
+    <div className="dark:text-white min-h-screen px-4">
       <div className="container mx-auto py-16 text-center">
-        <h1 className="text-4xl font-bold text-white mb-8">{t('Subscriptions.title')}</h1>
-        <p className="text-lg text-gray-300 mb-12">{t('Subscriptions.description')}</p>
+        <h1 className="text-4xl font-bold dark:text-white mb-8">{t('Subscriptions.title')}</h1>
+        <p className="text-lg dark:text-gray-300 mb-12">{t('Subscriptions.description')}</p>
 
         <div className="current-subscription-card bg-blue-100 dark:bg-[#1B1C22] p-4 mb-4 rounded-lg shadow-md">
           <h3 className="text-xl font-bold text-blue-700 dark:text-white">
