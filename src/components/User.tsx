@@ -5,58 +5,67 @@ import { ProfileOptionsButton } from '../ui/user/ProfileOptionsButton';
 import { RxExit } from 'react-icons/rx';
 import { IoMdOptions } from 'react-icons/io';
 import { SlOptionsVertical } from 'react-icons/sl';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../features/redux/store';
 import { setIsAuthenticated } from '../features/redux/user/userSlice';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GetUserProfile } from '../features/api/profile.ts';
 
-export const User = ({ name }: { name: string }) => {
-    const [open, setOpen] = useState(false);
-    const dispatch = useDispatch<AppDispatch>();
-    const menuRef = useRef<HTMLDivElement>(null);
+export const User = () => {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                setOpen(false);
-            }
-        };
+  const mutation = useMutation<ApiResponse<UserProfileResponseData>, Error>({
+    mutationFn: async () => {
+      return await GetUserProfile();
+    },
+    onSuccess: (data: ApiResponse<UserProfileResponseData>) => {
+      queryClient.setQueryData(['user_profile'], data.data);
+      console.log('Профиль пользователя:', data);
+      console.log('Профиль пользователя:', data.data);
+    },
+    onError: (error: Error) => {
+      console.error('Ошибка отправки пароля:', error);
+    }
+  });
 
-        const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setOpen(false);
-            }
-        };
+  useEffect(() => {
+    // Запускаем мутацию при монтировании компонента
+    mutation.mutate();
+  }, [mutation.mutate]);
 
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('mousedown', handleClickOutside);
+  const userProfile = queryClient.getQueryData<UserProfileResponseData>(['user_profile']);
 
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-    return (
-        <div className='relative' ref={menuRef}>
-            <div onClick={() => {
-                setOpen(!open);
-            }}
-                className='flex items-center gap-[10px] px-4 py-2 border rounded-lg w-max dark:border-[#27282D] hover:opacity-60 bg-transparent dark:bg-[#1B1C22] cursor-pointer relative'>
-                <UserAvatar name={name}></UserAvatar>
-                <UserName name={name}></UserName>
-                <SlOptionsVertical className="dark:text-gray-400" />
-            </div>
-            <div className={`absolute bg-[#F7F7F7] dark:bg-[#1B1C22] dark:text-white -bottom-[140px] left-0 px-4 py-2 rounded-lg flex flex-col gap-[10px] ${open ? 'block' : 'hidden'}`}>
-                <ProfileOptionsButton link='/dashboard/profile'> <CgProfile className="dark:text-white" /> Профиль </ProfileOptionsButton>
-                <ProfileOptionsButton link='/dashboard/profile'> <IoMdOptions className="dark:text-white" /> Настройки </ProfileOptionsButton>
-                <div className='h-[1px] border-b dark:border-gray-700'></div> 
-                <div className='w-max h-max' onClick={() => {
-                    dispatch(setIsAuthenticated(false));
-                }}>
-                    <ProfileOptionsButton link='/'> <RxExit className="dark:text-gray-400" /> Выйти </ProfileOptionsButton>
-                </div>
-            </div>
+  return (
+    <div className="relative">
+      <div onClick={() => {
+        setOpen(!open);
+      }}
+           className="flex items-center gap-[10px] px-4 py-2 border rounded-lg w-max bg-white dark:bg-[#1B1C22] dark:text-white dark:text-opacity-70 hover:dark:bg-[#2C2D31] transition duration-300 dark:border-[#27282D] bg-opacity-70 cursor-pointer relative">
+        {
+          userProfile &&
+          <UserAvatar className='h-[40px] w-[40px]' avatar_url={userProfile.avatar_url} nickname={userProfile.nickname}></UserAvatar> ||
+         <p>Загрузка...</p>
+        }
+        {
+          userProfile && <UserName name={userProfile.nickname}></UserName> ||
+          <p>Загрузка...</p>
+        }
+        <SlOptionsVertical />
+      </div>
+      <div
+        className={`bg-white dark:bg-[#1B1C22] dark:border-[#27282D] dark:text-white dark:text-opacity-70 absolute -bottom-[140px] left-0 px-4 py-2 rounded-lg flex flex-col gap-[10px] ${open ? 'block' : 'hidden'}`}>
+        <ProfileOptionsButton link="/dashboard/profile"> <CgProfile /> Профиль </ProfileOptionsButton>
+        <ProfileOptionsButton link="/dashboard/npc"> <IoMdOptions /> Настройки </ProfileOptionsButton>
+        <div className="h-[1px] border-b dark:border-[#27282D]"></div>
+        <div className="w-max h-max" onClick={() => {
+          dispatch(setIsAuthenticated(false));
+        }}>
+          <ProfileOptionsButton link="/"> <RxExit /> Выйти </ProfileOptionsButton>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
