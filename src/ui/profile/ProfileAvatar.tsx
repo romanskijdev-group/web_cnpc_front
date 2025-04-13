@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GetUserProfile } from '../../features/api/profile.ts';
 import { UserAvatar } from '../user/UserAvatar.tsx';
+// import { useNavigate } from "react-router-dom";
 
 export const ProfileUser = () => {
     const queryClient = useQueryClient();
@@ -13,7 +14,7 @@ export const ProfileUser = () => {
     let userId = "100000";
     const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
     const [tooltip, setTooltip] = useState<string>("Скопировать ID");
-    const navigate = useNavigate(); 
+    // const navigate = useNavigate(); 
 
     const handleCopy = () => {
         navigator.clipboard.writeText(`#${userId}`).then(() => {
