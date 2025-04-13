@@ -106,7 +106,20 @@
     "bold_title" : "Click to load"
   },
   "footer": {
-    "copyright": "Copyright 2023"
+    "copyright": "Copyright 2023",
+    "description": "Your key to the best quest lines.",
+    "org": "Organization",
+    "main": "Main",
+    "partners": "Partners",
+    "about": "About",
+    "features": "Features",
+    "support": "Support",
+    "contacts": "Contacts",
+    "vip": "VIP Support",
+    "resources": "Resources",
+    "controlPanel": "Control Panel",
+    "usagePolicy": "Usage Policy",
+    "termsOfService": "Terms of Service"
   },
   "cookieModal":{
     "title": "We employ cookies on our website, including both our own and those belonging to third parties, in order to enhance your experience, conduct traffic analysis, and maintain security and implement marketing strategies. By continuing your use of the site, you consent to ",
