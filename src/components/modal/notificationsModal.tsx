@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaBell, FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { NotificationBlock } from '../notification/notificationBlock';
-
-interface NotificationItem {
-  id: number;
-  title: string;
-  body: string;
-  isRead: boolean;
-  date: Date; 
-}
+import { NotificationsList } from '../notification/notificationBlock';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GetUserNotifications } from '../../features/api/notification.ts';
+// import { UpdateUserNotifications } from '../../features/api/notification.ts';
 
 interface NotificationMenuProps {
   onUnreadCountChange: (count: number) => void;
@@ -16,18 +11,37 @@ interface NotificationMenuProps {
 }
 
 export const NotificationMenu: React.FC<NotificationMenuProps> = ({ onUnreadCountChange, onClose }) => {
-  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [notifications, setNotifications] = useState<NotificationResponseData[]>([]);
   const [activeTab, setActiveTab] = useState('Все');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc'); // Состояние для сортировки
   const menuRef = useRef<HTMLDivElement>(null);
+  
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<ArrayApiResponse<NotificationResponseData>, Error>({
+    mutationFn: async () => {
+      return await GetUserNotifications();
+    },
+    onSuccess: (data: ArrayApiResponse<NotificationResponseData>) => {
+      queryClient.setQueryData(['user_notifications'], data.data);
+      console.log('Уведомление пользователя:', data);
+      console.log('Уведомление пользователя', data.data);
+    },
+    onError: (error: Error) => {
+      console.error('Ошибка отправки пароля:', error);
+    }
+  });
 
   useEffect(() => {
-    setNotifications([
-      { id: 1, title: 'Новое сообщение', body: 'Вы получили новое сообщение от Романа.', isRead: false, date: new Date('2023-10-05') },
-      { id: 2, title: 'Системное уведомление', body: 'Система обновлена до версии 1.1.', isRead: true, date: new Date('2023-10-04') },
-      { id: 3, title: 'Новости', body: 'Мы добавили функции!', isRead: false, date: new Date('2023-10-03') },
-    ]);
-  }, []);
+    // Запускаем мутацию при монтировании компонента
+    mutation.mutate();
+  }, [mutation.mutate]);
+
+  const userNotification = queryClient.getQueryData<NotificationResponseData[]>(['user_notifications']);
+
+useEffect(() => {
+  setNotifications(userNotification ? userNotification : []);
+}, [userNotification]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -52,42 +66,33 @@ export const NotificationMenu: React.FC<NotificationMenuProps> = ({ onUnreadCoun
   }, [onClose]);
 
   useEffect(() => {
-    onUnreadCountChange(notifications.filter(notification => !notification.isRead).length);
+    onUnreadCountChange(notifications.filter(notification => !notification.reading).length);
   }, [notifications, onUnreadCountChange]);
 
   const markAllAsRead = () => {
     setNotifications(notifications.map(notification => ({ ...notification, isRead: true })));
   };
 
-  const markAsRead = (id: number) => {
-    setNotifications(notifications.map(notification => notification.id === id ? { ...notification, isRead: true } : notification));
-  };
+  // const updateNotificationMutation = useMutation<ArrayApiResponse<NotificationResponseData>, Error>({
+  //   mutationFn: async () => {
+  //     return await UpdateUserNotifications();
+  //   },
+  //   onSuccess: (data: ArrayApiResponse<NotificationResponseData>) => {
+  //     queryClient.setQueryData(['user_notifications'], data.data);
+  //     console.log('Уведомления успешно обновлены:', data);
+  //   },
+  //   onError: (error: Error) => {
+  //     console.error('Ошибка при обновлении уведомлений:', error);
+  //   }
+  // });
 
-  const loadMoreNotifications = () => {
-    console.log('Запрос на загрузку дополнительных уведомлений отправлен');
-  };
+  // const loadMoreNotifications = () => {
+  //   updateNotificationMutation.mutate();
+  // };
 
   const toggleSortOrder = () => {
     setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
   };
-
-  // Фильтрация и сортировка уведомлений
-  const filteredAndSortedNotifications = notifications
-    .filter(notification =>
-      activeTab === 'Все' ||
-      (activeTab === 'Личные' && notification.title.includes('сообщение')) || 
-      (activeTab === 'Системные' && notification.title.includes('Системное')) ||
-      (activeTab === 'Новости' && notification.title.includes('Новости')) ||
-      (activeTab === 'Непрочитанные' && !notification.isRead)
-    )
-    .slice() // Создаем копию массива для сортировки
-    .sort((a, b) => {
-      if (sortOrder === 'asc') {
-        return a.date.getTime() - b.date.getTime(); // От старых к новым
-      } else {
-        return b.date.getTime() - a.date.getTime(); // От новых к старым
-      }
-    });
 
   return (
     <div 
@@ -130,34 +135,25 @@ export const NotificationMenu: React.FC<NotificationMenuProps> = ({ onUnreadCoun
       </div>
 
       <div className="px-6 py-4 bg-white dark:bg-[#1B1D23]">
-        {filteredAndSortedNotifications.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full">
-            <p className="text-gray-500 dark:text-gray-400">Здесь пока ничего нет.</p>
-          </div>
-        ) : (
-          <>
-            {filteredAndSortedNotifications.map((notification) => (
-              <NotificationBlock 
-                key={notification.id} 
-                title={notification.title}
-                isRead={notification.isRead}
-                onClick={() => markAsRead(notification.id)}
-              >
-                {notification.body}
-              </NotificationBlock>
-            ))}
-          
-            <div className="flex justify-center mt-4">
-              <button 
-                className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition duration-300"
-                onClick={loadMoreNotifications}
-              >
-                Загрузить ещё
-              </button>
-            </div>
-          </>
-        )}
+  {notifications.length === 0 ? (
+    <div className="flex flex-col items-center justify-center h-full">
+      <p className="text-gray-500 dark:text-gray-400">Здесь пока ничего нет.</p>
+    </div>
+  ) : (
+    <>
+      <NotificationsList notifications={notifications} />
+      
+      <div className="flex justify-center mt-4">
+        <button 
+          className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-700 transition duration-300"
+          // onClick={loadMoreNotifications}
+        >
+          Загрузить ещё
+        </button>
       </div>
+    </>
+  )}
+</div>
     </div>
   );
 };
