@@ -4,6 +4,15 @@
     "what_is": "What is this project?",
     "find_out": "Find out more"
   },
+  "auth": {
+    "login": "Login to account",
+    "orLogin": "Or log in via a third-party service using the following data",
+    "newUser": "New user? Enter your email and you will be automatically registered",
+    "checkbox": "Remember me",
+    "invalidCode" : "Invalid code",
+    "emailCodeInput" : "Please enter the code that we sent to the email you provided.",
+    "verify" : "Verify code"
+  },
   "navigation": {
     "main": "Main",
     "about": "About the project",
