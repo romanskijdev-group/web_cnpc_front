@@ -14,6 +14,8 @@ import DeleteProfileModal from "../components/modal/DeleteProfileModal.tsx";
 import { Button } from "../ui/buttons/ButtonDefault.tsx";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useMutation } from "@tanstack/react-query";
+import { uploadAvatar, UpdateUserData } from "../features/api/profile.ts";
 
 interface SettingsFormData {
     nickname: string;
@@ -42,37 +44,6 @@ const profileSettingsHeader = () => {
         </ProfileHeader>
     )
 }
-
-const uploadAvatar = async (file: File): Promise<any> => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const token = Cookies.get('accessToken');
-
-    if (!backendUrl) {
-        throw new Error('Backend URL is not defined');
-    }
-
-    if (!token) {
-        throw new Error('Invalid token auth');
-    }
-
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    try {
-        const response = await axios.put(`${backendUrl}/api/profile/user/avatar`, formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-
-        console.log('Ответ сервера:', response.data); // Логируем ответ сервера
-        return response.data;
-    } catch (error: any) {
-        console.error('Ошибка сервера:', error.response?.data || error.message); // Логируем ошибку
-        throw error;
-    }
-};
 
 export const ProfileSettings: React.FC = () => {
     const { t } = useTranslation();
@@ -145,6 +116,31 @@ export const ProfileSettings: React.FC = () => {
         setDeleteModalOpen(false);
     };
 
+const mutation = useMutation<
+  UserProfileResponseData, // Ожидаемый тип успешного ответа
+  Error, // Тип ошибки
+  SettingResponse // Тип входных данных
+>({
+  mutationFn: async (userSettings: SettingResponse) => {
+    const apiResponse = await UpdateUserData(userSettings);
+    return apiResponse.data; // Извлекаем data из ApiResponse
+  },
+  onSuccess: (data: UserProfileResponseData) => {
+    console.log('Настройки сохранены:', data);
+    setShowAlert(true);
+    setAlertType('success');
+    setAlertTitle('Успех');
+    setAlertText('Настройки успешно сохранены.');
+  },
+  onError: (error: Error) => {
+    console.error('Ошибка при сохранении настроек:', error.message);
+    setShowAlert(true);
+    setAlertType('error');
+    setAlertTitle('Ошибка');
+    setAlertText(error.message || 'Произошла неизвестная ошибка.');
+  }
+});
+
     return (
         <>
             {profileSettingsHeader()}
@@ -211,7 +207,7 @@ export const ProfileSettings: React.FC = () => {
                     icon={<IoSaveOutline />}
                 />
             </div>
-            <div className="col-start-2 row-start-9 col-span-2 p-2 relative flex flex-col gap-3 w-full items-start">
+            <div className="col-start-2 row-start-8 col-span-2 p-2 relative flex flex-col gap-3 w-full items-start">
                 <Button
                     title={t('profile.settings.delete_profile')}
                     onClick={handleDeleteClick}

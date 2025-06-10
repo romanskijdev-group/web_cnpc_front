@@ -67,3 +67,13 @@ interface AvatarResponse {
     file: File; 
     avatar_url?: string; 
 }
+
+interface SettingResponse {
+    nickname : string;
+    first_name : string;
+    last_name : string;
+    birth_date : string;
+    phone_number : string;
+    language : string;
+    push_notification_enabled : boolean;
+}
