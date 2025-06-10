@@ -12,10 +12,10 @@ import Toggle from "../ui/input/Toggle.tsx";
 import { IoSaveOutline } from "react-icons/io5";
 import DeleteProfileModal from "../components/modal/DeleteProfileModal.tsx";
 import { Button } from "../ui/buttons/ButtonDefault.tsx";
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useMutation } from "@tanstack/react-query";
-import { uploadAvatar, UpdateUserData } from "../features/api/profile.ts";
+// import axios from 'axios';
+// import Cookies from 'js-cookie';
+// import { useMutation } from "@tanstack/react-query";
+import { uploadAvatar,  } from "../features/api/profile.ts";
 
 interface SettingsFormData {
     nickname: string;
@@ -116,30 +116,30 @@ export const ProfileSettings: React.FC = () => {
         setDeleteModalOpen(false);
     };
 
-const mutation = useMutation<
-  UserProfileResponseData, // Ожидаемый тип успешного ответа
-  Error, // Тип ошибки
-  SettingResponse // Тип входных данных
->({
-  mutationFn: async (userSettings: SettingResponse) => {
-    const apiResponse = await UpdateUserData(userSettings);
-    return apiResponse.data; // Извлекаем data из ApiResponse
-  },
-  onSuccess: (data: UserProfileResponseData) => {
-    console.log('Настройки сохранены:', data);
-    setShowAlert(true);
-    setAlertType('success');
-    setAlertTitle('Успех');
-    setAlertText('Настройки успешно сохранены.');
-  },
-  onError: (error: Error) => {
-    console.error('Ошибка при сохранении настроек:', error.message);
-    setShowAlert(true);
-    setAlertType('error');
-    setAlertTitle('Ошибка');
-    setAlertText(error.message || 'Произошла неизвестная ошибка.');
-  }
-});
+// const mutation = useMutation<
+//   UserProfileResponseData, // Ожидаемый тип успешного ответа
+//   Error, // Тип ошибки
+//   SettingResponse // Тип входных данных
+// // >({
+//   mutationFn: async (userSettings: SettingResponse) => {
+//     const apiResponse = await UpdateUserData(userSettings);
+//     return apiResponse.data; // Извлекаем data из ApiResponse
+//   },
+//   onSuccess: (data: UserProfileResponseData) => {
+//     console.log('Настройки сохранены:', data);
+// //     setShowAlert(true);
+// //     setAlertType('success');
+// //     setAlertTitle('Успех');
+// //     setAlertText('Настройки успешно сохранены.');
+// //   },
+// //   onError: (error: Error) => {
+// //     console.error('Ошибка при сохранении настроек:', error.message);
+// //     setShowAlert(true);
+// //     setAlertType('error');
+// //     setAlertTitle('Ошибка');
+// //     setAlertText(error.message || 'Произошла неизвестная ошибка.');
+// //   }
+// });
 
     return (
         <>
