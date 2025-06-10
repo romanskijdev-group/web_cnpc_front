@@ -62,3 +62,8 @@ interface NotificationResponseData {
   title: string;
   message: string;
 }
+
+interface AvatarResponse {
+    file: File; 
+    avatar_url?: string; 
+}

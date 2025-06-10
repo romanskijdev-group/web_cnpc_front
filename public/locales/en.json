@@ -4,6 +4,10 @@
     "what_is": "What is this project?",
     "find_out": "Find out more"
   },
+  "translation": {
+    "ru": "Russian",
+    "en": "English"
+  },
   "auth": {
     "login": "Login to account",
     "orLogin": "Or log in via a third-party service using the following data",
