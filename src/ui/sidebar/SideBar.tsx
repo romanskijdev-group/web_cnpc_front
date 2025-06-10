@@ -14,7 +14,7 @@ import {PiLightningDuotone} from "react-icons/pi";
 import Cookies from "js-cookie";
 import {useTranslation} from "react-i18next";
 import { RiAdminLine } from "react-icons/ri";
-import { SelectLanguage } from '../../components/general/navbar/SelectLanguage.tsx';
+// import { SelectLanguage } from '../../components/general/navbar/SelectLanguage.tsx';
 
 export const SideBar = () => {
     const selected = useSelector((state: RootState) => state.projects.selectedProject);
