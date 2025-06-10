@@ -62,3 +62,47 @@ export const GetUserProfileByID = async (id: string | undefined): Promise<ApiRes
 
   return response.data;
 };
+
+export const uploadAvatar = async (file: File): Promise<AvatarResponse> => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const token = Cookies.get('accessToken');
+
+    if (!backendUrl) throw new Error('Backend URL is not defined');
+    if (!token) throw new Error('Invalid token auth');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await axios.put<AvatarResponse>(`${backendUrl}/api/profile/user/avatar`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return response.data;
+};
+
+export const UpdateUserData = async (userSettings: SettingResponse): Promise<UserProfileResponseData> => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const token = Cookies.get('accessToken');
+
+  if (!backendUrl) {
+    throw new Error('Backend URL is not defined');
+  }
+
+  if (!token) {
+    throw new Error('Invalid token auth');
+  }
+
+  const response = await axios.put<ApiResponse<UserProfileResponseData>>(`${backendUrl}/api/control/user`, {
+    userSettings
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  // Возвращаем только data из ApiResponse
+  return response.data.data;
+};

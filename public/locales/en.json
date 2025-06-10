@@ -4,6 +4,19 @@
     "what_is": "What is this project?",
     "find_out": "Find out more"
   },
+  "translation": {
+    "ru": "Russian",
+    "en": "English"
+  },
+  "auth": {
+    "login": "Login to account",
+    "orLogin": "Or log in via a third-party service using the following data",
+    "newUser": "New user? Enter your email and you will be automatically registered",
+    "checkbox": "Remember me",
+    "invalidCode" : "Invalid code",
+    "emailCodeInput" : "Please enter the code that we sent to the email you provided.",
+    "verify" : "Verify code"
+  },
   "navigation": {
     "main": "Main",
     "about": "About the project",
@@ -106,7 +119,20 @@
     "bold_title" : "Click to load"
   },
   "footer": {
-    "copyright": "Copyright 2023"
+    "copyright": "Copyright 2023",
+    "description": "Your key to the best quest lines.",
+    "org": "Organization",
+    "main": "Main",
+    "partners": "Partners",
+    "about": "About",
+    "features": "Features",
+    "support": "Support",
+    "contacts": "Contacts",
+    "vip": "VIP Support",
+    "resources": "Resources",
+    "controlPanel": "Control Panel",
+    "usagePolicy": "Usage Policy",
+    "termsOfService": "Terms of Service"
   },
   "cookieModal":{
     "title": "We employ cookies on our website, including both our own and those belonging to third parties, in order to enhance your experience, conduct traffic analysis, and maintain security and implement marketing strategies. By continuing your use of the site, you consent to ",

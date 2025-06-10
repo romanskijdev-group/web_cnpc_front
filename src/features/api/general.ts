@@ -4,6 +4,12 @@ interface ApiResponse<T> {
   total_count: number;
 }
 
+interface ArrayApiResponse<T> {
+  success: boolean; 
+  data: T[];      
+  count: number;    
+}
+
 interface GetTempPassData {
   email: string;
   expires_in: number;
@@ -45,4 +51,29 @@ interface UserProfileResponseData {
   last_login: string;
   is_online: boolean;
   last_online: string;
+}
+
+interface NotificationResponseData {
+  system_id: string;
+  serial_id: number;
+  created_at: string;
+  reading: boolean;
+  notify_type: string;
+  title: string;
+  message: string;
+}
+
+interface AvatarResponse {
+    file: File; 
+    avatar_url?: string; 
+}
+
+interface SettingResponse {
+    nickname : string;
+    first_name : string;
+    last_name : string;
+    birth_date : string;
+    phone_number : string;
+    language : string;
+    push_notification_enabled : boolean;
 }

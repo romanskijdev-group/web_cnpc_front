@@ -6,7 +6,26 @@ interface NotificationBlockProps {
   isRead: boolean;
   onClick: () => void;
 }
+interface NotificationsListProps {
+  notifications: NotificationResponseData[];
+}
 
+export const NotificationsList: React.FC<NotificationsListProps> = ({ notifications }) => {
+  return (
+    <div className="space-y-4">
+      {notifications.map((notification) => (
+        <NotificationBlock
+          key={notification.system_id} // Уникальный ключ для каждого элемента
+          title={notification.title}
+          isRead={notification.reading}
+          onClick={() => console.log(`Clicked on notification: ${notification.title}`)}
+        >
+          {notification.message}
+        </NotificationBlock>
+      ))}
+    </div>
+  );
+};
 export const NotificationBlock: React.FC<NotificationBlockProps> = ({ title, children, isRead, onClick }) => {
   return (
     <div 
@@ -22,4 +41,5 @@ export const NotificationBlock: React.FC<NotificationBlockProps> = ({ title, chi
       <div className="text-gray-700 dark:text-gray-300 mt-2">{children}</div>
     </div>
   );
+
 };

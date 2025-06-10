@@ -2,7 +2,7 @@ import { ProjectInterface } from './interface'
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: ProjectInterface = {
-    projects: ["gay"],
+    projects: ["Название проекта"],
     selectedProject: '',
     loading: false,
     error: null

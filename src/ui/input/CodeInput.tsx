@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AcceptCodeWithEmail } from '../../features/api/auth.ts';
 import CustomLoader from '../loader/loader.tsx';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 interface CodeInputProps {
   email: string;
@@ -20,6 +21,7 @@ interface AcceptCodeVariables {
 }
 
 const CodeInput: React.FC<CodeInputProps> = ({ code, setCode, email }) => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const codeLength = code.length;
   const [isValidCode, setIsValidCode] = useState(false); // Состояние валидации
@@ -55,39 +57,48 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode, email }) => {
   const handleKeyDown = (index: number, event: React.KeyboardEvent<HTMLInputElement>) => {
     switch (event.key) {
       case 'Backspace':
-        if (inputRefs.current[index].selectionStart === 0 && index > 0 && inputRefs.current[index - 1]) {
-          inputRefs.current[index - 1].focus();
-          // Устанавливаем курсор в конец предыдущего инпута
-          setTimeout(() => {
-            inputRefs.current[index - 1].setSelectionRange(1, 1);
-          }, 0);
+        if (inputRefs.current[index].selectionStart === 0 && index > 0) {
+          inputRefs.current[index - 1]?.focus();
         }
         break;
+  
       case 'ArrowLeft':
-        if (index > 0 && inputRefs.current[index - 1]) {
-          inputRefs.current[index - 1].focus();
-          // Устанавливаем курсор в конец предыдущего инпута
-          setTimeout(() => {
-            inputRefs.current[index - 1].setSelectionRange(1, 1);
-          }, 0);
+        if (index > 0) {
+          inputRefs.current[index - 1]?.focus();
         }
         break;
+  
       case 'ArrowRight':
-        if (index < codeLength - 1 && inputRefs.current[index + 1]) {
-          inputRefs.current[index + 1].focus();
-          // Устанавливаем курсор в конец следующего инпута
-          setTimeout(() => {
-            inputRefs.current[index - 1].setSelectionRange(1, 1);
-          }, 0);
+        if (index < codeLength - 1) {
+          inputRefs.current[index + 1]?.focus();
         }
         break;
+        
+      case 'a': // Ctrl+A
+        if (event.ctrlKey || event.metaKey) {
+          event.preventDefault();
+          inputRefs.current[index]?.setSelectionRange(0, 1); // Выделяем только текущий символ
+        }
+        break;
+  
       default:
         break;
+    }
+  };
+  
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData('text');
+    if (/^\d{6}$/.test(pastedText)) {
+      const newCode = pastedText.split('');
+      setCode(newCode);
+      inputRefs.current[codeLength - 1]?.focus(); // Фокус на последний инпут
     }
   };
 
   // Выделяем текст при фокусе на инпуте
   useEffect(() => {
+    inputRefs.current[0]?.focus();
     const handleFocus = (index: number) => {
       if (inputRefs.current[index]) {
         inputRefs.current[index].setSelectionRange(0, 1);
@@ -121,7 +132,7 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode, email }) => {
       }
     },
     onError: (error: Error) => {
-      console.error('Ошибка входа:', error); // Изменено сообщение
+      console.error('Ошибка входа:', error); 
     }
   });
 
@@ -131,12 +142,17 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode, email }) => {
       mutation.mutate({ email: email, password: code.join('') }); // Передаем объект с email и password
     }
   };
+  const handleEnterPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleConfirmPassword();
+    }
+  };
 
   return (
     <>
-      <div>
+      <div onKeyDown={handleEnterPress}>
         <p
-          className={`text-[12px] text-center mb-2 text-red-700 ${isValidCode || buttonClicked ? '' : 'hidden'}`}>{isValidCode || buttonClicked ? 'Неверный код' : ''}</p>
+          className={`text-[12px] text-center mb-2 text-red-700 ${isValidCode || buttonClicked ? '' : 'hidden'}`}>{isValidCode || buttonClicked ? t('auth.invalidCode') : ''}</p>
         <div className="flex space-x-2 w-full justify-center">
           {code.map((digit, index) => (
             <input
@@ -146,19 +162,18 @@ const CodeInput: React.FC<CodeInputProps> = ({ code, setCode, email }) => {
               inputMode="numeric"
               maxLength={1}
               value={digit}
+              onPaste={handlePaste}
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               className="w-10 h-10 text-center border rounded-lg border-gray-300 focus:outline-none focus:border-yellow-600 dark:bg-[#1B1C22] dark:border-[#27282D]"
             />
           ))}
         </div>
-        <p className={`text-[12px] text-center mt-2`}>Пожалуйста, введите код, который мы отправили вам на
-          введённый E-Mail.</p>
+        <p className={`text-[12px] text-center mt-2`}>{t('auth.emailCodeInput')}</p>
       </div>
       <button onClick={handleConfirmPassword}
               disabled={mutation.isPending}
-              className="bg-gradient-to-br from-yellow-500 via-red-500 to-pink-500 text-white shadow-md px-8 py-2 rounded-lg flex items-center justify-center relative">Подтвердить
-        код
+              className="bg-gradient-to-br from-yellow-500 via-red-500 to-pink-500 text-white shadow-md px-8 py-2 rounded-lg flex items-center justify-center relative">{t('auth.verify')}
         <CustomLoader style={`${mutation.isPending ? 'absolute right-5' : 'hidden'}`} />
       </button>
     </>

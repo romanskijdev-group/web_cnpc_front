@@ -8,8 +8,10 @@ import VKLogin from '../components/general/auth/VkLoginButton.tsx';
 import { useMutation } from '@tanstack/react-query';
 import { SendTemporaryPassword } from '../features/api/auth.ts';
 import CustomTypedAlert from '../ui/alerts/CustomTypedAlert.tsx';
+import { useTranslation } from "react-i18next";
 
 const Auth = () => {
+  const { t } = useTranslation();
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [rememberMe, setRememberMe] = useState(true);
 
@@ -61,7 +63,7 @@ const Auth = () => {
       <CustomTypedAlert alertText={alertText} alertTitle={alertTitle} alertType={alertType} isVisible={showAlert} setIsVisible={setShowAlert}></CustomTypedAlert>
       <div
         className="bg-[#F7F7F7] py-12 px-8 w-[400px] rounded-lg border dark:bg-[#1B1C22] dark:border-[#27282D] dark:text-white flex flex-col gap-[30px]">
-        <p className="font-semibold text-2xl flex items-center gap-[10px] justify-center">Вход в аккаунт <IoMdLogIn
+        <p className="font-semibold text-2xl flex items-center gap-[10px] justify-center">{t('auth.login')}<IoMdLogIn
           className="text-yellow-700" /></p>
         {
           mutation.isSuccess ? (<> <CodeInput email={formData.email} code={code} setCode={setCode}></CodeInput> </>) : (
@@ -71,7 +73,7 @@ const Auth = () => {
                   handleChange(e);
                 }} value={formData.email}
                        className="bg-transparent focus:outline-none border-b w-full focus:border-yellow-700 py-2"
-                       placeholder="email" />
+                       placeholder="Email" />
                 <p
                   className={`text-[12px] text-red-700 mt-2 ${validationData.isValid ? 'hidden' : ''}`}>{validationData.isValid ? '' : validationData.message}</p>
               </div>
@@ -79,8 +81,7 @@ const Auth = () => {
                 <button onClick={handleEmailLoginClick} disabled={mutation.isPending}
                         className="bg-gradient-to-br from-yellow-500 via-red-500 to-pink-500 text-white shadow-md px-8 py-2 rounded-lg">{mutation.isPending ? 'Отправка...' : 'Войти'}
                 </button>
-                <p className="text-center text-sm py-2 opacity-60">или войти через сторонний сервис с использованием
-                  данных</p>
+                <p className="text-center text-sm py-2 opacity-60">{t('auth.orLogin')}</p>
                 <div className="grid grid-cols-1 gap-[10px]">
                   <button
                     disabled={mutation.isPending}
@@ -94,8 +95,7 @@ const Auth = () => {
             </>
           )
         }
-        <p className="text-sm opacity-50 flex gap-[5px] mx-[auto] text-center">Новый пользователь?
-          Введите Email и автоматически будете зарегистрированы</p>
+        <p className="text-sm opacity-50 flex gap-[5px] mx-[auto] text-center">{t('auth.newUser')}</p>
       </div>
     </div>
   );

@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 export const SelectLanguage = ({aos, style}: {aos?:string, style?:string}) => {
     const { i18n } = useTranslation();
+    const {t} = useTranslation();
 
     const langList = {
-        ru: "Русский",
-        en: "English",
+        ru: t('translation.ru'),
+        en: t('translation.en'),
     }
 
     const [lang, setLang] = useState(Cookies.get('lang') || 'ru');
@@ -26,7 +27,7 @@ export const SelectLanguage = ({aos, style}: {aos?:string, style?:string}) => {
     }
 
     return(
-        <div className='relative text-lg flex rounded-lg'>
+        <div className='relative text-lg flex rounded-lg '>
             <div data-aos={aos} className={`bg-gray-100 dark:bg-[#1B1C22] dark:border-[#27282D] border dark:text-gray-100 py-2.5 sm:py-1.5 px-4 rounded-lg shadow-sm cursor-pointer ${style}`} onClick={() => {
                 setOpen(!open)
             }}>
@@ -40,13 +41,13 @@ export const SelectLanguage = ({aos, style}: {aos?:string, style?:string}) => {
                 <p onClick={() => {
                     selectLanguage({selected: "ru"})
                 }} className='flex flex-row items-center h-max gap-2 cursor-pointer opacity-60 duration-300 hover:opacity-100'>
-                    <img src={ruFlag} className='h-5' alt='' /> <span className='hidden md:flex'>Русский</span>
+                    <img src={ruFlag} className='h-5' alt='' /> <span className='hidden md:flex'>{t('translation.ru')}</span>
                 </p>
                 <p onClick={() => {
                     selectLanguage({selected: "en"})
                 }}
                    className='flex flex-row items-center h-max gap-2 cursor-pointer opacity-60 duration-300 hover:opacity-100'>
-                    <img src={usFlag} className='h-5' alt=''/> <span className='hidden md:flex'>English</span>
+                    <img src={usFlag} className='h-5' alt=''/> <span className='hidden md:flex'>{t('translation.en')}</span>
                 </p>
             </div>
         </div>
